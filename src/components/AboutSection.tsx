@@ -44,8 +44,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ theme }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="text-center max-w-3xl mx-auto space-y-4 mb-16"
@@ -66,8 +66,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ theme }) => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
           {/* Main Story Box */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
             className={`lg:col-span-7 p-6 sm:p-8 rounded-3xl border backdrop-blur-xl space-y-6 ${
@@ -133,8 +133,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ theme }) => {
             {statCounters.map((item, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 viewport={{ once: true, amount: 0.15 }}
                 transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 className={`p-6 rounded-2xl border backdrop-blur-xl flex flex-col justify-between hover:scale-[1.04] hover:-translate-y-1 hover:border-sky-500/40 hover:shadow-xl hover:shadow-sky-500/10 transition-all duration-300 cursor-default ${
@@ -164,8 +164,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ theme }) => {
           {corePillars.map((pillar, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.55, delay: idx * 0.09, ease: [0.16, 1, 0.3, 1] }}
               className={`p-6 rounded-2xl border backdrop-blur-xl transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1.5 hover:border-sky-500/40 hover:shadow-xl hover:shadow-sky-500/10 group cursor-default ${

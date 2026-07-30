@@ -67,8 +67,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ theme }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="text-center max-w-3xl mx-auto space-y-4 mb-12"
@@ -114,8 +114,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ theme }) => {
           {filteredServices.map((service, index) => (
             <motion.div
               key={service.id}
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay: (index % 3) * 0.08 }}
               className={`group relative rounded-3xl p-6 border backdrop-blur-xl transition-all duration-300 hover:-translate-y-2.5 hover:scale-[1.01] hover:shadow-2xl hover:shadow-sky-500/15 flex flex-col justify-between ${

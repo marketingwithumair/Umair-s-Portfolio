@@ -76,8 +76,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ theme }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           className="text-center max-w-3xl mx-auto mb-16 space-y-4"
         >
@@ -100,8 +100,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ theme }) => {
           {contactChannels.map((channel, idx) => (
             <motion.div
               key={channel.id}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
               className={`group relative rounded-2xl p-6 sm:p-8 border backdrop-blur-xl transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 ${channel.borderColor} ${
