@@ -1,0 +1,205 @@
+import React, { useState, useEffect, Suspense } from 'react';
+import { motion } from 'motion/react';
+import { ThemeMode } from './types';
+import { CustomCursor } from './components/CustomCursor';
+import { Navbar } from './components/Navbar';
+import { HeroSection } from './components/HeroSection';
+import { AboutSection } from './components/AboutSection';
+import { ServicesSection } from './components/ServicesSection';
+import { CaseStudySection } from './components/CaseStudySection';
+import { ExperienceTimeline } from './components/ExperienceTimeline';
+import { SkillsSection } from './components/SkillsSection';
+import { AIAuditSection } from './components/AIAuditSection';
+import { ContactSection } from './components/ContactSection';
+import { Footer } from './components/Footer';
+
+// Code splitting modals using React.lazy
+const ClientPortalModal = React.lazy(() =>
+  import('./components/ClientPortalModal').then((module) => ({ default: module.ClientPortalModal }))
+);
+
+const sectionEntranceVariants = {
+  hidden: { opacity: 0, y: 32, scale: 0.985 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.65,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
+
+export default function App() {
+  const [theme, setTheme] = useState<ThemeMode>(() => {
+    const saved = localStorage.getItem('umair_portfolio_theme');
+    return (saved as ThemeMode) || 'dark';
+  });
+
+  const [clientPortalOpen, setClientPortalOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScrollProgress = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        const progress = Math.min(100, Math.max(0, (window.scrollY / totalHeight) * 100));
+        setScrollProgress(progress);
+      }
+    };
+
+    window.addEventListener('scroll', handleScrollProgress, { passive: true });
+    handleScrollProgress();
+
+    return () => window.removeEventListener('scroll', handleScrollProgress);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('umair_portfolio_theme', theme);
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
+  const scrollToWork = () => {
+    document.getElementById('casestudy')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  return (
+    <div
+      className={`min-h-screen transition-colors duration-300 font-sans selection:bg-sky-500 selection:text-white ${
+        theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
+      }`}
+    >
+      {/* Animated Custom Cursor Effect */}
+      <CustomCursor theme={theme} />
+
+      {/* Top Reading Progress Bar */}
+      <div className="fixed top-0 left-0 right-0 z-[100] h-[3px] bg-slate-800/10 dark:bg-slate-200/10 pointer-events-none">
+        <div
+          className="h-full bg-gradient-to-r from-sky-400 via-blue-500 to-emerald-400 transition-all duration-150 ease-out shadow-[0_0_10px_rgba(56,189,248,0.7)]"
+          style={{ width: `${scrollProgress}%` }}
+        />
+      </div>
+
+      {/* Sticky Header Navigation */}
+      <Navbar
+        theme={theme}
+        toggleTheme={toggleTheme}
+        onOpenClientPortal={() => setClientPortalOpen(true)}
+      />
+
+      {/* Hero Section */}
+      <motion.div
+        layout
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+        variants={sectionEntranceVariants}
+      >
+        <HeroSection
+          theme={theme}
+          onViewWork={scrollToWork}
+        />
+      </motion.div>
+
+      {/* About Section */}
+      <motion.div
+        layout
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+        variants={sectionEntranceVariants}
+      >
+        <AboutSection theme={theme} />
+      </motion.div>
+
+      {/* Services Section */}
+      <motion.div
+        layout
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+        variants={sectionEntranceVariants}
+      >
+        <ServicesSection theme={theme} />
+      </motion.div>
+
+      {/* Featured Case Study Section */}
+      <motion.div
+        layout
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+        variants={sectionEntranceVariants}
+      >
+        <CaseStudySection theme={theme} />
+      </motion.div>
+
+      {/* Experience Timeline */}
+      <motion.div
+        layout
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+        variants={sectionEntranceVariants}
+      >
+        <ExperienceTimeline theme={theme} />
+      </motion.div>
+
+      {/* Skills Matrix */}
+      <motion.div
+        layout
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+        variants={sectionEntranceVariants}
+      >
+        <SkillsSection theme={theme} />
+      </motion.div>
+
+      {/* AI Ad Performance Audit Tool */}
+      <motion.div
+        layout
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+        variants={sectionEntranceVariants}
+      >
+        <AIAuditSection theme={theme} />
+      </motion.div>
+
+      {/* Direct Communication Channels Section */}
+      <motion.div
+        layout
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+        variants={sectionEntranceVariants}
+      >
+        <ContactSection theme={theme} />
+      </motion.div>
+
+      {/* Footer */}
+      <Footer theme={theme} />
+
+      {/* Modals with Suspense */}
+      <Suspense fallback={null}>
+        {clientPortalOpen && (
+          <ClientPortalModal
+            theme={theme}
+            isOpen={clientPortalOpen}
+            onClose={() => setClientPortalOpen(false)}
+          />
+        )}
+      </Suspense>
+    </div>
+  );
+}

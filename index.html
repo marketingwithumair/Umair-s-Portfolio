@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Umair Zafar | Performance Marketing & Growth Specialist</title>
+    <script>
+      // Suppress benign Vite dev server WebSocket disconnect errors in container environments
+      window.addEventListener('unhandledrejection', function (event) {
+        if (
+          event.reason &&
+          (event.reason.message === 'WebSocket closed without opened.' ||
+            (typeof event.reason === 'string' && event.reason.includes('WebSocket')) ||
+            (event.reason.stack && event.reason.stack.includes('websocket')))
+        ) {
+          event.preventDefault();
+        }
+      });
+      window.addEventListener('error', function (event) {
+        if (event.message && event.message.includes('failed to connect to websocket')) {
+          event.preventDefault();
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
