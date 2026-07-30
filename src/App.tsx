@@ -41,11 +41,18 @@ export default function App() {
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
+    let ticking = false;
     const handleScrollProgress = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalHeight > 0) {
-        const progress = Math.min(100, Math.max(0, (window.scrollY / totalHeight) * 100));
-        setScrollProgress(progress);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+          if (totalHeight > 0) {
+            const progress = Math.min(100, Math.max(0, (window.scrollY / totalHeight) * 100));
+            setScrollProgress((prev) => (Math.abs(prev - progress) > 0.5 ? progress : prev));
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
@@ -98,7 +105,6 @@ export default function App() {
 
       {/* Hero Section */}
       <motion.div
-        layout
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
@@ -112,7 +118,6 @@ export default function App() {
 
       {/* About Section */}
       <motion.div
-        layout
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
@@ -123,7 +128,6 @@ export default function App() {
 
       {/* Services Section */}
       <motion.div
-        layout
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
@@ -134,7 +138,6 @@ export default function App() {
 
       {/* Featured Case Study Section */}
       <motion.div
-        layout
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
@@ -145,7 +148,6 @@ export default function App() {
 
       {/* Experience Timeline */}
       <motion.div
-        layout
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
@@ -156,7 +158,6 @@ export default function App() {
 
       {/* Skills Matrix */}
       <motion.div
-        layout
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
@@ -167,7 +168,6 @@ export default function App() {
 
       {/* AI Ad Performance Audit Tool */}
       <motion.div
-        layout
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
@@ -178,7 +178,6 @@ export default function App() {
 
       {/* Direct Communication Channels Section */}
       <motion.div
-        layout
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}

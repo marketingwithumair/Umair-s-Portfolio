@@ -49,12 +49,12 @@ export const CustomCursor: React.FC<CustomCursorProps> = ({ theme }) => {
         ) as HTMLElement | null;
 
         if (interactiveEl) {
-          setIsHovered(true);
-          const customText = interactiveEl.getAttribute('data-cursor-text');
-          setCursorLabel(customText || null);
+          const customText = interactiveEl.getAttribute('data-cursor-text') || null;
+          setIsHovered((prev) => (prev !== true ? true : prev));
+          setCursorLabel((prev) => (prev !== customText ? customText : prev));
         } else {
-          setIsHovered(false);
-          setCursorLabel(null);
+          setIsHovered((prev) => (prev !== false ? false : prev));
+          setCursorLabel((prev) => (prev !== null ? null : prev));
         }
       }
     },

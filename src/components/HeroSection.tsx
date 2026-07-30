@@ -171,6 +171,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ theme, onViewWork }) =
                     alt="Umair Zafar - Performance Marketing Specialist"
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                     loading="eager"
+                    decoding="async"
+                    fetchPriority="high"
                   />
 
                   {/* Gradient Overlay */}

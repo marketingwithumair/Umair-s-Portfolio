@@ -128,20 +128,11 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ theme }) => {
               <div className="absolute -inset-px bg-gradient-to-r from-sky-500/20 to-blue-600/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none -z-10" />
 
               <div>
-                {/* Top Row Icon + Tag */}
+                {/* Top Row Icon */}
                 <div className="flex items-center justify-between mb-5">
                   <div className="p-3.5 rounded-2xl bg-sky-500/10 border border-sky-500/20 group-hover:scale-110 group-hover:bg-sky-500/20 group-hover:border-sky-500/40 transition-all duration-300">
                     {getServiceIcon(service.iconName)}
                   </div>
-                  <span
-                    className={`text-[10px] font-bold px-2.5 py-1 rounded-full border transition-all duration-300 group-hover:border-sky-500/30 ${
-                      theme === 'dark'
-                        ? 'bg-slate-800 text-sky-300 border-slate-700'
-                        : 'bg-sky-50 text-sky-700 border-sky-200'
-                    }`}
-                  >
-                    3D VERIFIED
-                  </span>
                 </div>
 
                 {/* Service Title */}

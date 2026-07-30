@@ -29,8 +29,8 @@ export const Interactive3DCanvas: React.FC<Interactive3DCanvasProps> = ({ theme,
     camera.position.set(0, 0, targetCameraZ);
 
     // Renderer setup with alpha transparency
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.setSize(width, height);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -303,11 +303,14 @@ export const Interactive3DCanvas: React.FC<Interactive3DCanvasProps> = ({ theme,
 
     window.addEventListener('resize', handleResize);
 
-    // Animation Loop
+    // Animation Loop with IntersectionObserver viewport check
     let animationFrameId: number;
+    let isIntersecting = true;
     const startTime = performance.now();
 
     const animate = () => {
+      if (!isIntersecting) return;
+
       const elapsedTime = (performance.now() - startTime) / 1000;
 
       // Smooth mouse interpolation
@@ -333,10 +336,28 @@ export const Interactive3DCanvas: React.FC<Interactive3DCanvasProps> = ({ theme,
       animationFrameId = requestAnimationFrame(animate);
     };
 
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isIntersecting = entry.isIntersecting;
+          if (isIntersecting) {
+            cancelAnimationFrame(animationFrameId);
+            animate();
+          } else {
+            cancelAnimationFrame(animationFrameId);
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(container);
+
     animate();
 
     // Cleanup
     return () => {
+      observer.disconnect();
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('resize', handleResize);
