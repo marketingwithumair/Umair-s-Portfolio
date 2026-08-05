@@ -6,7 +6,7 @@ export const PERSONAL_INFO = {
   shortBio: 'I help e-commerce brands scale profitably through data-driven advertising, conversion optimization, and growth-focused marketing strategies. I specialize in Meta Ads, TikTok Ads, Shopify growth, and performance analytics to deliver measurable business results.',
   aboutFull: 'I am a Performance Marketing Specialist with two years of experience helping e-commerce businesses grow through data-driven advertising strategies. My expertise includes Meta Ads, TikTok Ads, Shopify growth, conversion optimization, audience research, and performance analytics. I focus on turning advertising budgets into measurable business growth through continuous testing, optimization, and strategic decision-making.',
   photoUrl: 'https://cdn.phototourl.com/free/2026-07-27-9f9684ca-0f11-46a5-8a82-6596884aa222.png',
-  resumeUrl: 'https://drive.google.com/file/d/1AcK3pXuUf1TOMRke5coBe9eo24zIt9KH/view?usp=sharing',
+  resumeUrl: 'https://drive.google.com/file/d/1MU6FipyECKm1Y2ndhKR1E0SGs3tiduSp/view?usp=sharing',
   email: 'marktingwithumair@gmail.com',
   phone: '+92 317 1508958',
   linkedIn: 'https://www.linkedin.com/in/marketingwithumair/',
