@@ -1,21 +1,32 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { motion } from 'motion/react';
 import { ThemeMode } from './types';
+import { Preloader } from './components/Preloader';
 import { CustomCursor } from './components/CustomCursor';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { AboutSection } from './components/AboutSection';
 import { ServicesSection } from './components/ServicesSection';
-import { CaseStudySection } from './components/CaseStudySection';
-import { ExperienceTimeline } from './components/ExperienceTimeline';
-import { SkillsSection } from './components/SkillsSection';
-import { AIAuditSection } from './components/AIAuditSection';
-import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 
-// Code splitting modals using React.lazy
+// Code-split heavy below-the-fold components using React.lazy for faster initial page load
+const CaseStudySection = React.lazy(() =>
+  import('./components/CaseStudySection').then((m) => ({ default: m.CaseStudySection }))
+);
+const ExperienceTimeline = React.lazy(() =>
+  import('./components/ExperienceTimeline').then((m) => ({ default: m.ExperienceTimeline }))
+);
+const SkillsSection = React.lazy(() =>
+  import('./components/SkillsSection').then((m) => ({ default: m.SkillsSection }))
+);
+const AIAuditSection = React.lazy(() =>
+  import('./components/AIAuditSection').then((m) => ({ default: m.AIAuditSection }))
+);
+const ContactSection = React.lazy(() =>
+  import('./components/ContactSection').then((m) => ({ default: m.ContactSection }))
+);
 const ClientPortalModal = React.lazy(() =>
-  import('./components/ClientPortalModal').then((module) => ({ default: module.ClientPortalModal }))
+  import('./components/ClientPortalModal').then((m) => ({ default: m.ClientPortalModal }))
 );
 
 const sectionEntranceVariants = {
@@ -83,6 +94,9 @@ export default function App() {
         theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
       }`}
     >
+      {/* Website Preloader */}
+      <Preloader theme={theme} />
+
       {/* Animated Custom Cursor Effect */}
       <CustomCursor theme={theme} />
 
@@ -134,55 +148,58 @@ export default function App() {
         <ServicesSection theme={theme} />
       </motion.div>
 
-      {/* Featured Case Study Section */}
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-60px" }}
-        variants={sectionEntranceVariants}
-      >
-        <CaseStudySection theme={theme} />
-      </motion.div>
+      {/* Below-the-fold sections wrapped in Suspense for async loading */}
+      <Suspense fallback={<div className="min-h-[200px]" />}>
+        {/* Featured Case Study Section */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={sectionEntranceVariants}
+        >
+          <CaseStudySection theme={theme} />
+        </motion.div>
 
-      {/* Experience Timeline */}
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-60px" }}
-        variants={sectionEntranceVariants}
-      >
-        <ExperienceTimeline theme={theme} />
-      </motion.div>
+        {/* Experience Timeline */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={sectionEntranceVariants}
+        >
+          <ExperienceTimeline theme={theme} />
+        </motion.div>
 
-      {/* Skills Matrix */}
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-60px" }}
-        variants={sectionEntranceVariants}
-      >
-        <SkillsSection theme={theme} />
-      </motion.div>
+        {/* Skills Matrix */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={sectionEntranceVariants}
+        >
+          <SkillsSection theme={theme} />
+        </motion.div>
 
-      {/* AI Ad Performance Audit Tool */}
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-60px" }}
-        variants={sectionEntranceVariants}
-      >
-        <AIAuditSection theme={theme} />
-      </motion.div>
+        {/* AI Ad Performance Audit Tool */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={sectionEntranceVariants}
+        >
+          <AIAuditSection theme={theme} />
+        </motion.div>
 
-      {/* Direct Communication Channels Section */}
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-60px" }}
-        variants={sectionEntranceVariants}
-      >
-        <ContactSection theme={theme} />
-      </motion.div>
+        {/* Direct Communication Channels Section */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={sectionEntranceVariants}
+        >
+          <ContactSection theme={theme} />
+        </motion.div>
+      </Suspense>
 
       {/* Footer */}
       <Footer theme={theme} />

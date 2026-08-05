@@ -42,21 +42,24 @@ export const CustomCursor: React.FC<CustomCursorProps> = ({ theme }) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
 
-      const target = e.target as HTMLElement | null;
-      if (target) {
-        const interactiveEl = target.closest(
-          'a, button, input, textarea, select, [role="button"], .cursor-pointer, [data-cursor]'
-        ) as HTMLElement | null;
+      // Throttle DOM element check using requestAnimationFrame
+      window.requestAnimationFrame(() => {
+        const target = e.target as HTMLElement | null;
+        if (target) {
+          const interactiveEl = target.closest(
+            'a, button, input, textarea, select, [role="button"], .cursor-pointer, [data-cursor]'
+          ) as HTMLElement | null;
 
-        if (interactiveEl) {
-          const customText = interactiveEl.getAttribute('data-cursor-text') || null;
-          setIsHovered((prev) => (prev !== true ? true : prev));
-          setCursorLabel((prev) => (prev !== customText ? customText : prev));
-        } else {
-          setIsHovered((prev) => (prev !== false ? false : prev));
-          setCursorLabel((prev) => (prev !== null ? null : prev));
+          if (interactiveEl) {
+            const customText = interactiveEl.getAttribute('data-cursor-text') || null;
+            setIsHovered((prev) => (prev !== true ? true : prev));
+            setCursorLabel((prev) => (prev !== customText ? customText : prev));
+          } else {
+            setIsHovered((prev) => (prev !== false ? false : prev));
+            setCursorLabel((prev) => (prev !== null ? null : prev));
+          }
         }
-      }
+      });
     },
     [isVisible, mouseX, mouseY]
   );
