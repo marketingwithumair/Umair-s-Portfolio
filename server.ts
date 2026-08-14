@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import path from "path";
 import { createServer as createViteServer } from "vite";
@@ -91,80 +92,127 @@ function getGeminiClient(): GoogleGenAI | null {
   if (!aiClient) {
     aiClient = new GoogleGenAI({
       apiKey: key,
+      httpOptions: {
+        headers: {
+          'User-Agent': 'aistudio-build',
+        },
+      },
     });
   }
   return aiClient;
 }
 
-app.post("/api/ai-audit", async (req, res) => {
-  const { storeName, storeCategory, currentMonthlySpend, currentROAS, goal } = req.body || {};
+// Generate tailored fallback audit customized to the store parameters
+function generateTailoredAudit(params: {
+  storeName?: string;
+  storeCategory?: string;
+  currentMonthlySpend?: string;
+  currentROAS?: string;
+  goal?: string;
+}) {
+  const brand = params.storeName?.trim() || "Your E-Commerce Store";
+  const category = params.storeCategory?.trim() || "Beauty & Lifestyle";
+  const spend = params.currentMonthlySpend?.trim() || "$2,000";
+  const roasNum = parseFloat((params.currentROAS || "").replace(/[^0-9.]/g, "")) || 2.2;
+  const targetROAS = (roasNum * 2.1).toFixed(1);
+  const targetROASHigh = (roasNum * 2.8).toFixed(1);
 
-  const fallbackAudit = {
-    projectedROAS: "5.5x - 7.81x",
-    estimatedRevenueLift: "+180% Growth",
+  return {
+    projectedROAS: `${targetROAS}x - ${targetROASHigh}x`,
+    estimatedRevenueLift: `+${Math.min(320, Math.max(120, Math.round(roasNum * 65)))}% Revenue Growth`,
     quickWins: [
-      "Implement Broad Targeting + Dynamic Creative Testing (DCT) on Meta Ads to lower CPM by 25%",
-      "Fix Meta Conversion API (CAPI) event deduplication to recover 20%+ lost iOS purchase events",
-      "Deploy high-converting TikTok UGC Hooks targeting Beauty & Lifestyle impulse buyers",
-      "Optimize Shopify product page layout and post-purchase upsells to raise AOV from AED 50 to AED 70+"
+      `Deploy Broad Targeting + Dynamic Creative Testing (DCT) on Meta Ads specifically tailored for ${category} to decrease blended CAC by 28-35%.`,
+      `Implement Meta Conversion API (CAPI) server-side event deduplication with Shopify to reclaim 20-30% untracked iOS purchase signals.`,
+      `Scale high-velocity TikTok UGC hooks & creator spark ads focusing on 3-second visual problem-solution proof to drive cheap engaged top-of-funnel traffic.`,
+      `Structure an AOV expansion funnel on Shopify (post-purchase 1-click upsells & tiered bundle discounts) targeting customers above your current ${spend}/mo volume.`
     ],
-    recommendedStrategy: "Umair Zafar recommends a dual-funnel strategy: scale Meta CAPI conversion campaigns with DCT creatives while testing high-engagement TikTok UGC videos to drive low CPC traffic into custom Shopify retargeting segments."
+    recommendedStrategy: `For ${brand} in the ${category} vertical, Umair Zafar recommends establishing a consolidated 3-tier campaign architecture: Broad Advantage+ shopping with dynamic creative testing (70% budget), TikTok spark UGC ads for high-CTR cold discovery (20% budget), and hyper-targeted retention/CAPI retargeting (10% budget) to reach the ${params.goal || "target scaling goal"} profitably.`
   };
+}
 
-  const ai = getGeminiClient();
-  if (!ai) {
-    console.log("Notice: GEMINI_API_KEY is not configured yet. Returning expert fallback audit.");
-    return res.json({ success: true, audit: fallbackAudit });
-  }
-
+app.post("/api/ai-audit", async (req, res) => {
   try {
-    const prompt = `You are Umair Zafar, an elite Performance Marketing Specialist & Meta/TikTok Ads Expert. 
-A prospective e-commerce client has submitted their store details for an instant AI Performance Audit:
-- Store/Brand: ${storeName || "E-commerce Store"}
-- Niche/Category: ${storeCategory || "Beauty & Lifestyle"}
-- Current Monthly Ad Spend: ${currentMonthlySpend || "$2,000"}
-- Current ROAS: ${currentROAS || "2.5x"}
-- Growth Goal: ${goal || "Scale to 5x+ ROAS profitably"}
+    const { storeName, storeCategory, currentMonthlySpend, currentROAS, goal } = req.body || {};
 
-Provide a sharp, expert 4-point growth audit & action plan.
-Format your response as clean JSON matching this exact structure:
-{
-  "projectedROAS": "e.g. 5.5x - 7.8x",
-  "estimatedRevenueLift": "e.g. +140% to +220%",
-  "quickWins": [
-    "Winning creative hooks strategy recommendation for Meta & TikTok",
-    "Conversion API (CAPI) & Pixel setup tip to capture lost attribution",
-    "Funnel offer & retargeting audience segment tactic",
-    "AOV expansion bundle idea for Shopify"
-  ],
-  "recommendedStrategy": "A 2-3 sentence high-level summary of how Umair Zafar would structure campaigns for this brand."
-}`;
-
-    const response = await ai.models.generateContent({
-      model: "gemini-3.6-flash",
-      contents: prompt,
-      config: {
-        responseMimeType: "application/json",
-      },
+    const defaultAudit = generateTailoredAudit({
+      storeName,
+      storeCategory,
+      currentMonthlySpend,
+      currentROAS,
+      goal,
     });
 
-    let rawText = response.text || "";
-    // Clean potential markdown JSON formatting
-    rawText = rawText.replace(/```json/gi, "").replace(/```/g, "").trim();
-
-    let auditData = fallbackAudit;
-    try {
-      if (rawText) {
-        auditData = JSON.parse(rawText);
-      }
-    } catch (parseErr) {
-      console.warn("Notice: Gemini output was not strict JSON, using fallback audit.", parseErr);
+    const ai = getGeminiClient();
+    if (!ai) {
+      console.log("Notice: GEMINI_API_KEY is not configured in environment. Returning personalized expert audit.");
+      return res.json({ success: true, audit: defaultAudit });
     }
 
-    return res.json({ success: true, audit: auditData });
-  } catch (error: any) {
-    console.warn("Gemini API call notice:", error?.message || error);
-    return res.json({ success: true, audit: fallbackAudit });
+    try {
+      const prompt = `You are Umair Zafar, a world-class Performance Marketing Specialist and Meta/TikTok Ads expert who scaled brands to 7.81x ROAS.
+A prospective e-commerce store has requested an instant diagnostic audit:
+- Store/Brand Name: ${storeName || "E-Commerce Brand"}
+- Niche/Category: ${storeCategory || "Beauty & Lifestyle"}
+- Current Monthly Ad Spend: ${currentMonthlySpend || "$2,000"}
+- Current ROAS: ${currentROAS || "2.2x"}
+- Growth Goal: ${goal || "Scale to 5x+ ROAS profitably"}
+
+Provide a sharp, data-driven 4-point growth audit & action plan.
+Format your response as valid JSON matching this exact structure:
+{
+  "projectedROAS": "e.g. 5.2x - 7.5x",
+  "estimatedRevenueLift": "e.g. +165% Growth",
+  "quickWins": [
+    "Winning creative testing & hook recommendation for Meta & TikTok",
+    "Conversion API (CAPI) & Pixel setup recommendation to capture lost attribution",
+    "Funnel offer & retargeting audience segment tactic for this niche",
+    "AOV expansion or post-purchase bundle idea for Shopify"
+  ],
+  "recommendedStrategy": "A 2-3 sentence strategic blueprint detailing how Umair Zafar will achieve this growth."
+}`;
+
+      const response = await ai.models.generateContent({
+        model: "gemini-3.7-flash",
+        contents: prompt,
+        config: {
+          systemInstruction: "You are Umair Zafar, an elite Performance Marketing Specialist. Output strict JSON with projectedROAS, estimatedRevenueLift, quickWins (array of exactly 4 strings), and recommendedStrategy.",
+          responseMimeType: "application/json",
+        },
+      });
+
+      const rawText = (response.text || "").trim();
+      let auditData = defaultAudit;
+
+      if (rawText) {
+        try {
+          const cleanedText = rawText.replace(/^```json\s*/i, "").replace(/\s*```$/i, "").trim();
+          const parsed = JSON.parse(cleanedText);
+          if (
+            parsed.projectedROAS &&
+            parsed.estimatedRevenueLift &&
+            Array.isArray(parsed.quickWins) &&
+            parsed.quickWins.length > 0 &&
+            parsed.recommendedStrategy
+          ) {
+            auditData = parsed;
+          }
+        } catch (parseErr) {
+          console.warn("Notice: Gemini output JSON parse fallback:", parseErr);
+        }
+      }
+
+      return res.json({ success: true, audit: auditData });
+    } catch (geminiError: any) {
+      console.warn("Gemini API call encountered an issue, falling back to personalized audit engine:", geminiError?.message || geminiError);
+      return res.json({ success: true, audit: defaultAudit });
+    }
+  } catch (err: any) {
+    console.error("Critical error in /api/ai-audit:", err);
+    // Even in case of unexpected input error, always return a success response with tailored audit
+    return res.json({
+      success: true,
+      audit: generateTailoredAudit(req.body || {}),
+    });
   }
 });
 
