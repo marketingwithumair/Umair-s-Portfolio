@@ -154,35 +154,35 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ theme, onViewWork }) =
 
           {/* Right Portrait Column with Floating Interactive 3D KPI Badges */}
           <div className="lg:col-span-5 flex justify-center relative">
-            <div className="relative group max-w-md w-full">
+            <div className="relative group w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 max-w-full aspect-square">
               {/* Outer Decorative Gradient Ring */}
-              <div className="absolute -inset-1.5 bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-500 rounded-3xl blur-md opacity-70 group-hover:opacity-100 transition duration-500 animate-pulse" />
+              <div className="absolute -inset-1.5 bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-500 rounded-full blur-md opacity-70 group-hover:opacity-100 transition duration-500 animate-pulse" />
 
               {/* Card Glass Frame */}
               <div
-                className={`relative rounded-3xl overflow-hidden border backdrop-blur-xl p-3 transition-all duration-500 group-hover:border-sky-500/40 ${
+                className={`relative w-full h-full rounded-full overflow-hidden border backdrop-blur-xl p-3 transition-all duration-500 group-hover:border-sky-500/40 ${
                   theme === 'dark' ? 'bg-slate-950/90 border-slate-800' : 'bg-white/90 border-slate-200 shadow-xl'
                 }`}
               >
                 {/* Umair Zafar Portrait Photo */}
-                <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-slate-900">
+                <div className="relative w-full h-full rounded-full overflow-hidden bg-slate-900">
                   <img
                     src={PERSONAL_INFO.photoUrl}
                     alt="Umair Zafar - Performance Marketing Specialist"
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
                     loading="eager"
                     decoding="async"
                     fetchPriority="high"
                   />
 
                   {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none" />
 
                   {/* Bottom Portrait Tag */}
-                  <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-slate-900/80 backdrop-blur-md border border-slate-700/80 text-white flex items-center justify-between transition-all duration-300 group-hover:border-sky-500/40">
+                  <div className="absolute bottom-5 inset-x-8 sm:inset-x-12 p-2 sm:p-2.5 rounded-xl bg-slate-900/85 backdrop-blur-md border border-slate-700/80 text-white text-center transition-all duration-300 group-hover:border-sky-500/40 shadow-lg">
                     <div>
-                      <h3 className="font-bold text-sm">{PERSONAL_INFO.name}</h3>
-                      <p className="text-[11px] text-sky-400 font-medium">Meta & TikTok Ads Strategist</p>
+                      <h3 className="font-bold text-xs sm:text-sm leading-tight">{PERSONAL_INFO.name}</h3>
+                      <p className="text-[10px] sm:text-[11px] text-sky-400 font-medium">Meta & TikTok Ads Strategist</p>
                     </div>
                   </div>
                 </div>
@@ -190,7 +190,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ theme, onViewWork }) =
 
               {/* Floating KPI Badge 1: Peak ROAS (Top Right) */}
               <div
-                className={`absolute -top-4 -right-4 sm:-right-6 p-3 rounded-2xl border backdrop-blur-xl shadow-xl flex items-center gap-3 animate-bounce-slow transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-500/20 cursor-pointer ${
+                className={`absolute -top-3 -right-2 sm:-right-4 p-3 rounded-2xl border backdrop-blur-xl shadow-xl flex items-center gap-3 animate-bounce-slow transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-500/20 cursor-pointer z-20 ${
                   theme === 'dark' ? 'bg-slate-900/95 border-sky-500/40 text-white' : 'bg-white/95 border-sky-200 text-slate-900'
                 }`}
               >
@@ -203,9 +203,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ theme, onViewWork }) =
                 </div>
               </div>
 
-              {/* Floating KPI Badge 2: Revenue Generated (Bottom Left) - Moved down so name is clearly visible */}
+              {/* Floating KPI Badge 2: Revenue Generated (Bottom Left) */}
               <div
-                className={`absolute -bottom-12 -left-4 sm:-left-6 p-3.5 rounded-2xl border backdrop-blur-xl shadow-xl flex items-center gap-3 z-20 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-sky-500/20 cursor-pointer ${
+                style={{ animationDelay: '1.5s' }}
+                className={`absolute -bottom-10 sm:-bottom-12 -left-3 sm:-left-6 p-3.5 rounded-2xl border backdrop-blur-xl shadow-xl flex items-center gap-3 z-20 animate-bounce-slow transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-sky-500/20 cursor-pointer ${
                   theme === 'dark' ? 'bg-slate-900/95 border-blue-500/40 text-white' : 'bg-white/95 border-blue-200 text-slate-900'
                 }`}
               >
