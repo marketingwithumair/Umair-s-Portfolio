@@ -2,9 +2,9 @@ import { CaseStudyData, ServiceItem, SkillCategory, TimelineItem } from '../type
 
 export const PERSONAL_INFO = {
   name: 'Umair Zafar',
-  headline: 'Performance Marketer | Meta & TikTok Ads Expert | Shopify Growth Strategist',
-  shortBio: 'I help e-commerce brands scale profitably through data-driven advertising, conversion optimization, and growth-focused marketing strategies. I specialize in Meta Ads, TikTok Ads, Shopify growth, and performance analytics to deliver measurable business results.',
-  aboutFull: 'I am a Performance Marketing Specialist with two years of experience helping e-commerce businesses grow through data-driven advertising strategies. My expertise includes Meta Ads, TikTok Ads, Shopify growth, conversion optimization, audience research, and performance analytics. I focus on turning advertising budgets into measurable business growth through continuous testing, optimization, and strategic decision-making.',
+  headline: 'Performance Marketer | Meta Ads Expert | Shopify Growth Strategist',
+  shortBio: 'I help e-commerce brands scale profitably through data-driven advertising, conversion optimization, and growth-focused marketing strategies. I specialize in Meta Ads, Shopify growth, and performance analytics to deliver measurable business results.',
+  aboutFull: 'I am a Performance Marketing Specialist with two years of experience helping e-commerce businesses grow through data-driven advertising strategies. My expertise includes Meta Ads, Shopify growth, conversion optimization, audience research, and performance analytics. I focus on turning advertising budgets into measurable business growth through continuous testing, optimization, and strategic decision-making.',
   photoUrl: 'https://cdn.phototourl.com/free/2026-07-27-9f9684ca-0f11-46a5-8a82-6596884aa222.png',
   resumeUrl: 'https://drive.google.com/file/d/1MU6FipyECKm1Y2ndhKR1E0SGs3tiduSp/view?usp=sharing',
   email: 'marktingwithumair@gmail.com',
@@ -20,7 +20,7 @@ export const PERSONAL_INFO = {
   ],
   typingHeadlines: [
     'Performance Marketer',
-    'Meta & TikTok Ads Expert',
+    'Meta Ads Expert',
     'Shopify Growth Strategist',
     'ROAS & Conversion Optimizer',
   ]
@@ -42,18 +42,18 @@ export const SERVICES_DATA: ServiceItem[] = [
     '3dType': 'meta'
   },
   {
-    id: 'tiktok-ads',
-    title: 'TikTok Ads Management',
-    description: 'Engaging, viral UGC-style video ad campaigns engineered to capture gen-Z and millennial attention and turn scrolling into impulse purchases.',
-    iconName: 'Video',
-    tags: ['TikTok Spark Ads', 'UGC Ads', 'Trend Hijacking', 'Impulse Buyers'],
+    id: 'advantage-plus-ads',
+    title: 'Advantage+ & Funnel Scaling',
+    description: 'Next-generation Meta Advantage+ Shopping Campaigns (ASC) paired with full-funnel creative testing to unlock profitable scale.',
+    iconName: 'TrendingUp',
+    tags: ['Advantage+ ASC', 'Dynamic Ads', 'Automated Targeting', 'Scale Architecture'],
     features: [
-      'UGC creative briefing & hook strategy',
-      'Spark Ads & organic post boosting',
-      'Interactive ad formats & catalog ads',
-      'Trend-focused creative scaling'
+      'Meta Advantage+ Shopping campaign setup & tuning',
+      'Dynamic creative testing (DCT) matrix',
+      'High-converting product catalog integrations',
+      'Budget pacing & algorithmic bid management'
     ],
-    '3dType': 'tiktok'
+    '3dType': 'meta'
   },
   {
     id: 'shopify-growth',
@@ -260,17 +260,17 @@ export const TIMELINE_DATA: TimelineItem[] = [
     period: '2024 – Present',
     location: 'Hybrid / On-site',
     responsibilities: [
-      'Planned, launched, and optimized high-performing paid advertising campaigns across Meta Ads and TikTok Ads to drive customer acquisition and revenue growth.',
+      'Planned, launched, and optimized high-performing paid advertising campaigns across Meta Ads (Facebook & Instagram) to drive customer acquisition and revenue growth.',
       'Managed end-to-end performance marketing campaigns for e-commerce brands, digital marketing agencies, and real estate clients, consistently achieving ROAS and CPA targets.',
       'Generated 500+ qualified leads per month through scalable lead generation campaigns while maintaining cost-efficient acquisition.',
       'Managed and optimized Shopify stores by improving product pages, collections, navigation, and conversion-focused user experience to increase sales performance.'
     ],
     achievements: [
-      'Scaled e-commerce and lead-gen campaigns across Meta & TikTok Ads, driving 8x - 10x ROAS with optimized CPA targets.',
+      'Scaled e-commerce and lead-gen campaigns across Meta Ads, driving 8x - 10x ROAS with optimized CPA targets.',
       'Generated 500+ qualified leads monthly for real estate and agency clients through scalable acquisition funnels.',
       'Enhanced Shopify store sales performance by optimizing product pages, collections, navigation, and checkout UX.'
     ],
-    tags: ['Meta Ads', 'TikTok Ads', 'Performance Marketing', 'Lead Gen', 'Shopify Growth', 'Creative Strategy']
+    tags: ['Meta Ads', 'Performance Marketing', 'Lead Gen', 'Shopify Growth', 'Creative Strategy', 'CAPI Tracking']
   },
   {
     company: 'Style Wear',
@@ -313,7 +313,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     icon: 'Megaphone',
     skills: [
       { name: 'Meta Ads (Facebook & Instagram)', level: 96, badgeText: 'Expert' },
-      { name: 'TikTok Ads Manager', level: 92, badgeText: 'Advanced' },
+      { name: 'Advantage+ Shopping Campaigns (ASC)', level: 95, badgeText: 'Expert' },
       { name: 'Broad & Advantage+ Targeting', level: 95, badgeText: 'Expert' },
       { name: 'Custom & Lookalike Audiences', level: 94, badgeText: 'Expert' },
     ]

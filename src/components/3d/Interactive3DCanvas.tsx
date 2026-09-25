@@ -29,11 +29,9 @@ export const Interactive3DCanvas: React.FC<Interactive3DCanvasProps> = ({ theme,
     camera.position.set(0, 0, targetCameraZ);
 
     // Renderer setup with alpha transparency
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true, powerPreference: 'high-performance', precision: 'mediump' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.25));
     renderer.setSize(width, height);
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     // Clear previous canvas if any
     while (container.firstChild) {

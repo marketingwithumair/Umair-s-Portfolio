@@ -139,8 +139,15 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <a
-            href="#home"
-            onClick={(e) => scrollToSection(e, '#home')}
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'instant' });
+              if (window.location.hash) {
+                window.history.replaceState(null, '', window.location.pathname);
+              }
+              window.location.reload();
+            }}
             className="flex items-center gap-3 group cursor-pointer"
             id="nav-logo"
           >

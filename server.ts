@@ -123,10 +123,10 @@ function generateTailoredAudit(params: {
     quickWins: [
       `Deploy Broad Targeting + Dynamic Creative Testing (DCT) on Meta Ads specifically tailored for ${category} to decrease blended CAC by 28-35%.`,
       `Implement Meta Conversion API (CAPI) server-side event deduplication with Shopify to reclaim 20-30% untracked iOS purchase signals.`,
-      `Scale high-velocity TikTok UGC hooks & creator spark ads focusing on 3-second visual problem-solution proof to drive cheap engaged top-of-funnel traffic.`,
+      `Scale high-velocity Meta Reels video hooks and dynamic creative combinations focusing on 3-second visual problem-solution proof to drive cheap engaged top-of-funnel traffic.`,
       `Structure an AOV expansion funnel on Shopify (post-purchase 1-click upsells & tiered bundle discounts) targeting customers above your current ${spend}/mo volume.`
     ],
-    recommendedStrategy: `For ${brand} in the ${category} vertical, Umair Zafar recommends establishing a consolidated 3-tier campaign architecture: Broad Advantage+ shopping with dynamic creative testing (70% budget), TikTok spark UGC ads for high-CTR cold discovery (20% budget), and hyper-targeted retention/CAPI retargeting (10% budget) to reach the ${params.goal || "target scaling goal"} profitably.`
+    recommendedStrategy: `For ${brand} in the ${category} vertical, Umair Zafar recommends establishing a consolidated 3-tier campaign architecture: Broad Advantage+ shopping with dynamic creative testing (70% budget), Meta Reels & video ads for cold acquisition (20% budget), and hyper-targeted retention/CAPI retargeting (10% budget) to reach the ${params.goal || "target scaling goal"} profitably.`
   };
 }
 
@@ -149,7 +149,7 @@ app.post("/api/ai-audit", async (req, res) => {
     }
 
     try {
-      const prompt = `You are Umair Zafar, a world-class Performance Marketing Specialist and Meta/TikTok Ads expert who scaled brands to 7.81x ROAS.
+      const prompt = `You are Umair Zafar, a world-class Performance Marketing Specialist and Meta Ads expert who scaled brands to 7.81x ROAS.
 A prospective e-commerce store has requested an instant diagnostic audit:
 - Store/Brand Name: ${storeName || "E-Commerce Brand"}
 - Niche/Category: ${storeCategory || "Beauty & Lifestyle"}
@@ -163,7 +163,7 @@ Format your response as valid JSON matching this exact structure:
   "projectedROAS": "e.g. 5.2x - 7.5x",
   "estimatedRevenueLift": "e.g. +165% Growth",
   "quickWins": [
-    "Winning creative testing & hook recommendation for Meta & TikTok",
+    "Winning creative testing & hook recommendation for Meta Ads (FB & IG)",
     "Conversion API (CAPI) & Pixel setup recommendation to capture lost attribution",
     "Funnel offer & retargeting audience segment tactic for this niche",
     "AOV expansion or post-purchase bundle idea for Shopify"
@@ -274,7 +274,7 @@ app.get("/api/client-metrics", (req, res) => {
   return res.json({
     success: true,
     metrics: {
-      accountName: "Glow & Charm Beauty - Meta & TikTok Ads",
+      accountName: "Glow & Charm Beauty - Meta Ads Growth",
       currency: "AED",
       summary: {
         totalSpend: 2066.17,
@@ -309,8 +309,8 @@ app.get("/api/client-metrics", (req, res) => {
           purchases: 144,
         },
         {
-          name: "TikTok_Impulse_Hooks_Retargeting",
-          platform: "TikTok Ads",
+          name: "Advantage_Plus_Shopping_Campaign_ASC",
+          platform: "Meta Ads",
           budget: "AED 80/day",
           status: "ACTIVE",
           spend: 510.00,

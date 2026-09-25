@@ -88,7 +88,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ theme, onViewWork }) =
 
             {/* Static Headline */}
             <p className={`text-base sm:text-lg font-medium leading-relaxed ${theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}`}>
-              <strong>Performance Marketer | Meta & TikTok Ads Expert | Shopify Growth Strategist</strong>
+              <strong>Performance Marketer | Meta Ads Expert | Shopify Growth Strategist</strong>
             </p>
 
             {/* Professional Introduction Paragraph */}
@@ -182,7 +182,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ theme, onViewWork }) =
                   <div className="absolute bottom-5 inset-x-8 sm:inset-x-12 p-2 sm:p-2.5 rounded-xl bg-slate-900/85 backdrop-blur-md border border-slate-700/80 text-white text-center transition-all duration-300 group-hover:border-sky-500/40 shadow-lg">
                     <div>
                       <h3 className="font-bold text-xs sm:text-sm leading-tight">{PERSONAL_INFO.name}</h3>
-                      <p className="text-[10px] sm:text-[11px] text-sky-400 font-medium">Meta & TikTok Ads Strategist</p>
+                      <p className="text-[10px] sm:text-[11px] text-sky-400 font-medium">Meta Ads & Shopify Strategist</p>
                     </div>
                   </div>
                 </div>

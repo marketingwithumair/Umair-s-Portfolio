@@ -28,14 +28,14 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ theme }) => {
     {
       icon: <Zap className="w-6 h-6 text-amber-500" />,
       title: 'Full-Funnel CRO & AOV',
-      desc: 'Aligning Meta/TikTok ad creative directly with Shopify post-click landing experience and bundle upsells.'
+      desc: 'Aligning Meta ad creatives directly with Shopify post-click landing experience and bundle upsells.'
     },
   ];
 
   const statCounters = [
     { number: '2', label: 'Years Experience', detail: 'Dedicated Performance Marketing' },
     { number: '10x', label: 'Peak ROAS Achieved', detail: 'In 2-Year Professional Period' },
-    { number: '50+', label: 'Campaigns Managed', detail: 'Meta & TikTok Ads' },
+    { number: '50+', label: 'Campaigns Managed', detail: 'Meta Ads & E-com Scale' },
     { number: '100%', label: 'Attribution Clarity', detail: 'Server-Side CAPI & GA4' },
   ];
 
@@ -104,7 +104,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ theme }) => {
               <div className="flex items-center gap-2.5">
                 <CheckCircle2 className="w-5 h-5 text-sky-500 shrink-0" />
                 <span className={`text-sm font-medium ${theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}`}>
-                  Meta & TikTok Ads Specialist
+                  Meta Ads Specialist (FB & IG)
                 </span>
               </div>
               <div className="flex items-center gap-2.5">

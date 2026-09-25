@@ -9,8 +9,19 @@ interface PreloaderProps {
 }
 
 export const Preloader: React.FC<PreloaderProps> = ({ theme, onComplete }) => {
+  // Check if this page is being refreshed or revisited in the current session
+  const [isLoading, setIsLoading] = useState(() => {
+    try {
+      if (typeof window !== 'undefined' && sessionStorage.getItem('umair_portfolio_loaded') === 'true') {
+        return false;
+      }
+    } catch {
+      // Fallback
+    }
+    return true;
+  });
+
   const [progress, setProgress] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
   const [statusMessage, setStatusMessage] = useState('Initializing Growth Engine...');
   const isFinishedRef = useRef(false);
 
@@ -21,20 +32,32 @@ export const Preloader: React.FC<PreloaderProps> = ({ theme, onComplete }) => {
     setProgress(100);
     setStatusMessage('Ready for Growth');
 
+    try {
+      sessionStorage.setItem('umair_portfolio_loaded', 'true');
+    } catch {
+      // Ignore storage errors
+    }
+
     setTimeout(() => {
       setIsLoading(false);
       document.body.style.overflow = '';
       if (onComplete) {
         onComplete();
       }
-    }, 300);
+    }, 120);
   };
 
   useEffect(() => {
-    // Lock body scroll during preloader display
+    if (!isLoading) {
+      document.body.style.overflow = '';
+      if (onComplete) onComplete();
+      return;
+    }
+
+    // Lock body scroll during initial preloader display only
     document.body.style.overflow = 'hidden';
 
-    const duration = 1600; // 1.6s smooth duration
+    const duration = 480; // Fast and snappy 480ms duration
     const startTime = performance.now();
     let animationFrameId: number;
 
@@ -46,12 +69,10 @@ export const Preloader: React.FC<PreloaderProps> = ({ theme, onComplete }) => {
 
       setProgress(calcProgress);
 
-      if (calcProgress < 30) {
+      if (calcProgress < 40) {
         setStatusMessage('Initializing Growth Engine...');
-      } else if (calcProgress < 65) {
+      } else if (calcProgress < 80) {
         setStatusMessage('Loading Performance Datasets...');
-      } else if (calcProgress < 95) {
-        setStatusMessage('Optimizing Ad Metrics...');
       } else {
         setStatusMessage('Ready for Growth');
       }
@@ -65,17 +86,16 @@ export const Preloader: React.FC<PreloaderProps> = ({ theme, onComplete }) => {
 
     animationFrameId = requestAnimationFrame(updateProgress);
 
-    // Absolute fallback timer to ensure preloader NEVER gets stuck under any browser state
     const fallbackTimer = setTimeout(() => {
       finishLoading();
-    }, 2000);
+    }, 700);
 
     return () => {
       cancelAnimationFrame(animationFrameId);
       clearTimeout(fallbackTimer);
       document.body.style.overflow = '';
     };
-  }, []);
+  }, [isLoading]);
 
   return (
     <AnimatePresence
@@ -89,10 +109,10 @@ export const Preloader: React.FC<PreloaderProps> = ({ theme, onComplete }) => {
           initial={{ opacity: 1, y: '0%' }}
           exit={{
             y: '-100%',
-            opacity: 0.95,
+            opacity: 0,
             transition: {
-              duration: 0.7,
-              ease: [0.76, 0, 0.24, 1],
+              duration: 0.3,
+              ease: [0.16, 1, 0.3, 1],
             },
           }}
           onClick={finishLoading}

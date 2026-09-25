@@ -7,7 +7,7 @@ export interface ServiceItem {
   iconName: string;
   tags: string[];
   features: string[];
-  '3dType': 'meta' | 'tiktok' | 'shopify' | 'leads' | 'analytics' | 'pixel' | 'capi' | 'cro' | 'creative' | 'audit';
+  '3dType': 'meta' | 'shopify' | 'leads' | 'analytics' | 'pixel' | 'capi' | 'cro' | 'creative' | 'audit';
 }
 
 export interface CaseStudyMetric {

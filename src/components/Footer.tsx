@@ -1,5 +1,5 @@
-import React from 'react';
-import { Download, Mail, Linkedin, Phone, ArrowUp, Sparkles } from 'lucide-react';
+import React, { useState } from 'react';
+import { Download, Mail, Linkedin, Phone, ArrowUp, Sparkles, Image as ImageIcon, Loader2 } from 'lucide-react';
 import { ThemeMode } from '../types';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import { UzMonogram } from './UzMonogram';
@@ -9,6 +9,27 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ theme }) => {
+  const [downloadingImage, setDownloadingImage] = useState(false);
+
+  const handleDownloadBrandLogo = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (downloadingImage) return;
+    try {
+      setDownloadingImage(true);
+      const mod = await import('../assets/images/studio_render_v2_1790338241815.jpg');
+      const link = document.createElement('a');
+      link.href = mod.default;
+      link.download = 'Umair_Zafar_Brand_Lockup.jpg';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (err) {
+      console.error('Failed to download image:', err);
+    } finally {
+      setDownloadingImage(false);
+    }
+  };
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -46,7 +67,7 @@ export const Footer: React.FC<FooterProps> = ({ theme }) => {
             </div>
 
             <p className="text-xs leading-relaxed max-w-sm">
-              Performance Marketing Specialist helping e-commerce brands scale profitably through Meta Ads, TikTok Ads, Shopify growth, and CAPI server-side tracking.
+              Performance Marketing Specialist helping e-commerce brands scale profitably through Meta Ads, Shopify growth, and CAPI server-side tracking.
             </p>
 
             <div className="flex items-center gap-2 pt-2">
@@ -114,15 +135,36 @@ export const Footer: React.FC<FooterProps> = ({ theme }) => {
               Direct Downloads
             </h4>
 
-            <a
-              href={PERSONAL_INFO.resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-all"
-            >
-              <Download className="w-4 h-4 text-sky-400" />
-              <span>Download Umair's Resume (PDF)</span>
-            </a>
+            <div className="flex flex-col gap-2">
+              <a
+                href={PERSONAL_INFO.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-all"
+              >
+                <Download className="w-4 h-4 text-sky-400" />
+                <span>Download Umair's Resume (PDF)</span>
+              </a>
+
+              <button
+                type="button"
+                onClick={handleDownloadBrandLogo}
+                disabled={downloadingImage}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-sky-300 bg-sky-950/60 hover:bg-sky-900/60 border border-sky-500/30 transition-all hover:border-sky-400 shadow-xs cursor-pointer active:scale-95 disabled:opacity-50"
+              >
+                {downloadingImage ? (
+                  <>
+                    <Loader2 className="w-4 h-4 text-sky-400 animate-spin" />
+                    <span>Preparing JPG...</span>
+                  </>
+                ) : (
+                  <>
+                    <ImageIcon className="w-4 h-4 text-sky-400" />
+                    <span>Download Brand Logo & Title (JPG)</span>
+                  </>
+                )}
+              </button>
+            </div>
 
             <div className="text-[11px] text-slate-500 pt-1">
               Location: Pakistan / Global E-commerce Remote

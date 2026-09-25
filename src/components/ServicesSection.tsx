@@ -53,7 +53,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ theme }) => {
   };
 
   const filteredServices = SERVICES_DATA.filter((s) => {
-    if (activeCategory === 'ads') return ['meta-ads', 'tiktok-ads', 'lead-generation', 'creative-strategy'].includes(s.id);
+    if (activeCategory === 'ads') return ['meta-ads', 'advantage-plus-ads', 'lead-generation', 'creative-strategy'].includes(s.id);
     if (activeCategory === 'tech') return ['pixel-setup', 'capi-setup', 'analytics-tracking'].includes(s.id);
     if (activeCategory === 'cro') return ['shopify-growth', 'cro', 'marketing-audits'].includes(s.id);
     return true;

@@ -93,7 +93,7 @@ export const ClientPortalModal: React.FC<ClientPortalModalProps> = ({ theme, isO
               </div>
               <h3 className="text-2xl font-extrabold tracking-tight">Client Portal Authentication</h3>
               <p className={`text-xs ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
-                Access your real-time Meta & TikTok ad spend, revenue analytics, and campaign performance dashboard.
+                Access your real-time Meta ad spend, Shopify revenue analytics, and campaign performance dashboard.
               </p>
             </div>
 

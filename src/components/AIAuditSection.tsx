@@ -36,10 +36,10 @@ export const AIAuditSection: React.FC<AIAuditSectionProps> = ({ theme }) => {
       quickWins: [
         `Deploy Broad Advantage+ targeting with Dynamic Creative Testing (DCT) on Meta Ads specifically tailored for ${category} to decrease blended CAC by 28-35%.`,
         `Implement Meta Conversion API (CAPI) server-side event deduplication with Shopify to reclaim 20-30% untracked iOS purchase signals.`,
-        `Scale high-velocity TikTok UGC hooks & creator spark ads focusing on 3-second visual problem-solution proof to drive cheap engaged discovery traffic.`,
+        `Scale high-velocity Meta dynamic creative testing (DCT) and Reels video hooks focusing on 3-second visual problem-solution proof to drive cheap engaged discovery traffic.`,
         `Structure an AOV expansion funnel on Shopify (post-purchase 1-click upsells & tiered bundle discounts) targeting customers above your current ${spend}/mo volume.`
       ],
-      recommendedStrategy: `For ${brandName || 'your store'} in the ${category} vertical, Umair Zafar recommends establishing a consolidated 3-tier campaign architecture: Broad Advantage+ shopping with dynamic creative testing (70% budget), TikTok spark UGC ads for high-CTR cold discovery (20% budget), and hyper-targeted retention/CAPI retargeting (10% budget) to reach the ${targetGoal || 'target scaling goal'} profitably.`
+      recommendedStrategy: `For ${brandName || 'your store'} in the ${category} vertical, Umair Zafar recommends establishing a consolidated 3-tier campaign architecture: Broad Advantage+ shopping with dynamic creative testing (70% budget), high-CTR Meta Reels & video ads for cold acquisition (20% budget), and hyper-targeted retention/CAPI retargeting (10% budget) to reach the ${targetGoal || 'target scaling goal'} profitably.`
     };
   };
 
